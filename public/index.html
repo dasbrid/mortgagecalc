@@ -3,12 +3,13 @@
   <head>
 
     <!-- link for PWA manifest -->
-    <link rel="manifest" href="/manifest.json">
+    <!-- Important to make this ./ so that it installs on non-root webserver -->
+    <link rel="manifest" href="./manifest.json">
     <!-- iOS meta tags and icons (Safari on iOS doesn't support the web app manifest - yet) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="MortgageCalc">
-    <link rel="apple-touch-icon" href="/img/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" href="./img/icons/icon-152x152.png">
 
     <!-- Add description here (avoid lighthouse "no meta description" error) -->
     <meta name="description" content="Mortgage calculator app">
