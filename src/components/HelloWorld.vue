@@ -1,33 +1,49 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
+    <h1>Mortgage Calculator</h1>
+  
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input v-model="loanAmount" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" required id="sample4">
+      <label class="mdl-textfield__label" for="sample4">Loan Amount</label>
+      <span class="mdl-textfield__error">Input is not a number!</span>
+    </div>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input v-model="interestRate" class="mdl-textfield__input" type="text" pattern="[0-9]+(\.[0-9]+)?" required id="sample2">
+      <label class="mdl-textfield__label" for="sample2">Interest Rate</label>
+      <span class="mdl-textfield__error">Input is not a number!</span>
+    </div>
+
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input v-model="monthlyPayment" class="mdl-textfield__input" type="text" pattern="[0-9]+(\.[0-9]+)?" required id="sample3">
+      <label class="mdl-textfield__label" for="sample3">Monthly payment</label>
+      <span class="mdl-textfield__error">Input is not a number!</span>
+    </div>
+    <P>
+    <button :disabled="!inputsValid" @click.prevent="calculate" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+      Calculate
+    </button>
     </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa" target="_blank" rel="noopener">pwa</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    <p v-if="yearsToPay === -1">You Cannot Pay this mortgage</p>
+    <div v-if="yearsToPay != -1">
+    <p>Years to pay the mortgage {{yearsToPay}}</p>
+    <p>Total paid {{totalPaid}}</p>
+
+      <table v-if="yearsToPay != -1" class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Amount Outstanding</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr v-for="(amount, index) in this.amounts" :key=index>
+      <td>{{amount.year}}</td>
+      <td>{{amount.amount}}</td>
+    </tr>
+  </tbody>
+  </table>
+  </div>
   </div>
 </template>
 
@@ -35,7 +51,54 @@
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String
+  },
+  data() {
+    return {
+      loanAmount: 300000,
+      interestRate: 5,
+      monthlyPayment: 2000,
+      amounts:[],
+      yearsToPay: -1,
+      totalPaid: -1,
+    }
+  },
+  computed: {
+    inputsValid() {
+      if (/^[0-9]+(\.[0-9]+)?$/.test(this.loanAmount) 
+      && /^[0-9]+(\.[0-9]+)?$/.test(this.interestRate)
+      && /^[0-9]+(\.[0-9]+)?$/.test(this.monthlyPayment)) {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
+  methods: {
+  calculate() {
+        this.yearsToPay = -1
+        this.totalPaid = -1
+
+        if (this.loanAmount * (1 + this.interestRate / 100) - (this.monthlyPayment * 12) > this.loanAmount)
+        {
+          return
+        }
+        
+        this.amounts = []
+        var amountLeftToPay = this.loanAmount
+        
+        for (var i = 1; ;i++)
+        {
+          amountLeftToPay = amountLeftToPay * (1 + this.interestRate / 100) - (this.monthlyPayment * 12)
+          this.amounts.push({year: i, amount: Math.round(amountLeftToPay)})
+          if (amountLeftToPay < 0)
+            break;
+        }
+        this.yearsToPay = i
+        this.totalPaid = i * this.monthlyPayment * 12
+      }
+  },
+    mounted() {
+    this.calculate();
   }
 }
 </script>

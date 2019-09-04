@@ -1,6 +1,6 @@
 {
-  "name": "mortgage-calc",
-  "short_name": "mortgage-calc",
+  "name": "Mortgage Calculator",
+  "short_name": "MortgageCalc",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
