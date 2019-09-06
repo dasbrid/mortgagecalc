@@ -30,20 +30,20 @@
     <p>Total paid {{totalPaid}}</p>
 
       <table v-if="yearsToPay != -1" class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
-  <thead>
-    <tr>
-      <th>Year</th>
-      <th>Amount Outstanding</th>
-    </tr>
-  </thead>
-  <tbody>
-  <tr v-for="(amount, index) in this.amounts" :key=index>
-      <td>{{amount.year}}</td>
-      <td>{{amount.amount}}</td>
-    </tr>
-  </tbody>
-  </table>
-  </div>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Amount Outstanding</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(amount, index) in this.amounts" :key=index>
+            <td>{{amount.year}}</td>
+            <td>{{amount.amount}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -105,8 +105,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+table {
+    margin: 0 auto;
+}
+* {
+  text-align: center;
+}
+h1 {
+  margin: 40px 100px;
 }
 ul {
   list-style-type: none;

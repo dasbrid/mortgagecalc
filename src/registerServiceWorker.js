@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'production') {
       )
     },
     registered () {
-      console.log('Service worker has been registered.')
+      console.log('A Service worker has been registered.')
     },
     cached () {
       console.log('Content has been cached for offline use.')
@@ -19,9 +19,16 @@ if (process.env.NODE_ENV === 'production') {
     updatefound () {
       console.log('New content is downloading.')
     },
-    updated () {
-      console.log('New content is available; please refresh.')
+    updated (registration) {
+      console.log('Updated')
+      // dispatch a custom event (handled in App.vue)
+      document.dispatchEvent(
+        new CustomEvent('swUpdated', { detail: registration })
+      );
     },
+    /* updated () {
+      console.log('New content is available; please refresh.')
+    },*/
     offline () {
       console.log('No internet connection found. App is running in offline mode.')
     },
