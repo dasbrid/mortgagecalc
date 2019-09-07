@@ -1,7 +1,5 @@
 <template>
   <div class="hello">
-    <h1>Mortgage Calculator</h1>
-  
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
       <input v-model="loanAmount" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" required id="sample4">
       <label class="mdl-textfield__label" for="sample4">Loan Amount</label>
@@ -55,7 +53,7 @@ export default {
   data() {
     return {
       loanAmount: 300000,
-      interestRate: 5,
+      interestRate: 1.2,
       monthlyPayment: 2000,
       amounts:[],
       yearsToPay: -1,
