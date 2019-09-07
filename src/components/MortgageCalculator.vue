@@ -47,7 +47,7 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'MortgageCalculator',
   props: {
   },
   data() {

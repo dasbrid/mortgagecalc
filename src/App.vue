@@ -14,7 +14,7 @@
     </div>
   </header>
   <main class="mdl-layout__content">
-  <HelloWorld/>
+  <MortgageCalculator/>
   </main>
   </div>
   
@@ -25,12 +25,12 @@
 // for how to detect and install updates
 
 require('material-design-lite')
-import HelloWorld from './components/HelloWorld.vue'
+import MortgageCalculator from './components/MortgageCalculator.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    MortgageCalculator
   },
   data() {
   return {
