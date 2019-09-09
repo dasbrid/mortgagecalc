@@ -1,22 +1,23 @@
 <template>
-  <div id="app">
-    <div>
-      <img alt="Mortgage Calc" title="v1.7" src="./assets/logo.png" width="64" >
-      <div v-if="updateExists">   
-      <!-- Colored icon button -->
-      <button  @click="refreshApp()" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-        <i class="material-icons">refresh</i>
-      </button> New version available! Click to update
-      </div>
-      <div v-if="installPossible">   
-      <!-- Colored icon button -->
-      <button  @click="installer()" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-        <i class="material-icons">add_circle</i>
-      </button> Install this app
-      </div>
+  <div  class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout-icon">
+        <img alt="Mortgage Calc" title="v1.8" src="./assets/logo.png" height="32px" >
     </div>
-    <HelloWorld/>
+    <div class="mdl-layout__header-row">
+      <span class="mdl-layout__title">Mortgage Calc</span>
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+        <a div v-if="installPossible" class="mdl-navigation__link" @click="installer()" href="#">Install</a>
+        <a div v-if="updateExists" class="mdl-navigation__link" @click="refreshApp()" href="#">Update</a>
+      </nav>
+    </div>
+  </header>
+  <main class="mdl-layout__content">
+  <MortgageCalculator/>
+  </main>
   </div>
+  
 </template>
 
 <script>
@@ -24,12 +25,12 @@
 // for how to detect and install updates
 
 require('material-design-lite')
-import HelloWorld from './components/HelloWorld.vue'
+import MortgageCalculator from './components/MortgageCalculator.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    MortgageCalculator
   },
   data() {
   return {
@@ -104,5 +105,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 5px;
+}
+.mdl-layout__header{
+    overflow: visible;
 }
 </style>
