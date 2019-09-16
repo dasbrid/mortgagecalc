@@ -7,7 +7,7 @@
     </div>
 
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <input v-model="interestRate" class="mdl-textfield__input" type="text" pattern="[0-9]+(\.[0-9]+)?" required id="sample2">
+      <input v-model="interestRate" class="mdl-textfield__input" type="text" pattern="[0-9]*(\.[0-9]+)?" required id="sample2">
       <label class="mdl-textfield__label" for="sample2">Interest Rate</label>
       <span class="mdl-textfield__error">Input is not a number!</span>
     </div>
@@ -63,7 +63,7 @@ export default {
   computed: {
     inputsValid() {
       if (/^[0-9]+(\.[0-9]+)?$/.test(this.loanAmount) 
-      && /^[0-9]+(\.[0-9]+)?$/.test(this.interestRate)
+      && /^[0-9]*(\.[0-9]+)?$/.test(this.interestRate)
       && /^[0-9]+(\.[0-9]+)?$/.test(this.monthlyPayment)) {
         return true
       } else {
